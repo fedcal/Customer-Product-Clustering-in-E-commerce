@@ -1,23 +1,8 @@
 ---
-layout: default
-title: Architettura
-parent: Scelte tecniche
-nav_order: 1
-description: >-
-  Layout del repository, principi di design (separazione src/notebooks,
-  configurazione centralizzata, two-snapshot temporale), responsabilità
-  dei moduli, interfacce pubbliche e punti di estensione.
----
-
-# Architettura del progetto
-{: .no_toc }
-
-## Indice
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
-
+sidebar_position: 1
+title: "Architettura del progetto"
+description: |
+  Layout del progetto Ecom Clustering: struttura dei moduli src/, two-snapshot temporale, flusso dati end-to-end, CLI ecom-cluster, dipendenze.
 ---
 
 ## 1. Layout
@@ -71,7 +56,7 @@ ecom-customer-product-clustering/
 ├── docs/
 │   ├── index.md                 Home del sito.
 │   ├── teoria/                  5 file Markdown didattici.
-│   ├── scelte_tecniche/         Documenti di design (questo file + scelte_modello.md).
+│   ├── scelte_tecniche/         Documenti di design (questo file + scelte-modello.md).
 │   └── stylesheets/extra.css    Custom styling Material.
 │
 ├── .github/workflows/docs.yml   GitHub Actions per build + deploy GitHub Pages.
@@ -106,7 +91,7 @@ Il PW richiede esplicitamente split temporali e validazione su periodi futuri. I
 - `as_of_train = t_max − 2H`: snapshot training del classificatore (feature → label a `t_max − H`).
 - `as_of_test = t_max − H`: snapshot test (feature → label a `t_max`).
 
-Con $H$ = `future_horizon_days` (default 30 giorni). Implementato in `pipeline._pick_snapshots`. Vedi `docs/teoria/03_split_temporali_e_no_leakage.md` per i dettagli.
+Con $H$ = `future_horizon_days` (default 30 giorni). Implementato in `pipeline._pick_snapshots`. Vedi `docs/teoria/03-split-temporali-no-leakage.md` per i dettagli.
 
 ### 2.4 Configurazione centralizzata
 
@@ -279,7 +264,7 @@ Estensioni possibili (non implementate):
 
 Il progetto **non implementa** una test suite completa — è didattico. Smoke test inclusi:
 
-- `ecom-cluster --quick` esegue tutta la pipeline in <30s con K=5 fisso e senza GMM.
+- `ecom-cluster --quick` esegue tutta la pipeline in &lt;30s con K=5 fisso e senza GMM.
 - Esecuzione dei 4 notebook end-to-end via `nbconvert --execute` (manuale).
 
 Per produzione si dovrebbero aggiungere:

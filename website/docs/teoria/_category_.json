@@ -1,0 +1,9 @@
+{
+  "label": "Teoria",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "slug": "/category/teoria",
+    "description": "Fondamenti teorici della pipeline: feature RFM e point-in-time, K-Means vs alternative, split temporali e prevenzione del leakage, metriche multiclasse, riproducibilità."
+  }
+}

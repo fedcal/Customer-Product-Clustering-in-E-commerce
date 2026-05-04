@@ -1,24 +1,8 @@
 ---
-layout: default
-title: Scelte di modellazione
-parent: Scelte tecniche
-nav_order: 2
-math: mathjax
-description: >-
-  Razionale delle decisioni di modeling: K-Means come baseline, GMM come
-  confronto, feature RFM-extended, scelta classificatore (RandomForest +
-  XGBoost), gestione dello sbilanciamento di classe.
----
-
-# Scelte di modellazione: razionale
-{: .no_toc }
-
-## Indice
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
-
+sidebar_position: 2
+title: "Scelte di modellazione: razionale"
+description: |
+  Razionale delle decisioni: K-Means come modello primario, GMM come confronto, RandomForest e XGBoost per il cluster futuro, gestione dello sbilanciamento di classe.
 ---
 
 Documenta le decisioni "perché così e non cosà" di livello modeling. Per dettagli teorici sulle tecniche, vedi la sezione [Teoria](../../teoria/).
@@ -233,7 +217,7 @@ I cluster K-Means sono spesso sbilanciati: con 1200 utenti e $K=5$, è normale a
 
 - **SMOTE**: oversampling sintetico delle classi minoritarie. Da applicare DENTRO la pipeline (no leakage). Tipicamente migliora macro-F1 di 1-3 punti.
 - **`sample_weight`** custom in XGBoost: assegnare pesi inversamente proporzionali alla frequenza. ~equivalente a `class_weight="balanced"` di RF.
-- **Cost-sensitive learning**: definire $c_{ij}$ esplicito (vedi `docs/teoria/04_classificazione_multiclasse_e_metriche.md`, sezione 4.1).
+- **Cost-sensitive learning**: definire $c_{ij}$ esplicito (vedi `docs/teoria/04-classificazione-multiclasse-metriche.md`, sezione 4.1).
 
 ## 7. Riproducibilità
 
@@ -245,7 +229,7 @@ I cluster K-Means sono spesso sbilanciati: con 1200 utenti e $K=5$, è normale a
 - `XGBClassifier(random_state=...)`
 - `_sample_silhouette` (numpy generator locale)
 
-Vedi [`docs/teoria/05_pipeline_riproducibile_e_seed.md`](../teoria/05_pipeline_riproducibile_e_seed.md) per i dettagli su seeding e idempotenza.
+Vedi [`docs/teoria/05-pipeline-riproducibile-seed.md`](../teoria/05-pipeline-riproducibile-seed.md) per i dettagli su seeding e idempotenza.
 
 ## 8. Quale sarebbe il next step?
 

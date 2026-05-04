@@ -1,27 +1,13 @@
 ---
-layout: default
-title: RFM & feature temporali
-parent: Teoria
-nav_order: 1
-math: mathjax
-description: >-
-  Analisi RFM (Recency-Frequency-Monetary), arricchita con propensione,
-  varietà di esplorazione e price sensitivity. Feature point-in-time
-  calcolate "as-of" per evitare data leakage temporale.
+sidebar_position: 1
+title: "RFM & feature temporali"
+description: |
+  RFM (Recency-Frequency-Monetary) point-in-time, arricchito con propensione, varieta di esplorazione e price sensitivity. Calcolo as-of per evitare data leakage temporale.
 ---
 
 # RFM e feature temporali point-in-time
-{: .no_toc }
 
 > *"Il segnale non è quanto un utente ha comprato in totale: è quanto ha comprato fino a ieri."*
-
-## Indice
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
-
----
 
 ## 1. Cos'è l'analisi RFM e perché funziona
 
@@ -60,8 +46,11 @@ def compute_rfm(events_history, as_of, user_universe=None):
     return rfm
 ```
 
-!!! warning "Cold users"
-    Gli utenti senza acquisti nello storico (cold) hanno $R$ indefinita. Imputiamo con $\max(R) + 1$ (sentinella esplicita): "non hanno mai acquistato, sono ancora più vecchi del più vecchio noto". Il segnale "cold" è codificato anche da `has_purchased = 0`.
+:::warning[Cold users]
+
+Gli utenti senza acquisti nello storico (cold) hanno $R$ indefinita. Imputiamo con $\max(R) + 1$ (sentinella esplicita): "non hanno mai acquistato, sono ancora più vecchi del più vecchio noto". Il segnale "cold" è codificato anche da `has_purchased = 0`.
+
+:::
 
 ## 2. Perché RFM da solo non basta
 
@@ -128,10 +117,13 @@ events_history = filter_events_until(events, as_of)   # timestamp < as_of
 feats = compute_user_features(events_history, as_of, ...)
 ```
 
-!!! danger "Esempio di feature NON point-in-time"
-    Calcolare `monetary_total` come somma su TUTTI gli eventi del dataset, indipendentemente da `as_of`, è leakage: stiamo dicendo al modello "questo utente alla fine spenderà tot", ma quel valore include eventi futuri.
+:::danger[Esempio di feature NON point-in-time]
 
-    Il bug è subdolo perché in fase di training/test il modello ottiene metriche eccellenti — ma in produzione, dove "il futuro" non è disponibile, le metriche crollano.
+Calcolare `monetary_total` come somma su TUTTI gli eventi del dataset, indipendentemente da `as_of`, è leakage: stiamo dicendo al modello "questo utente alla fine spenderà tot", ma quel valore include eventi futuri.
+
+Il bug è subdolo perché in fase di training/test il modello ottiene metriche eccellenti — ma in produzione, dove "il futuro" non è disponibile, le metriche crollano.
+
+:::
 
 ## 4. Feature prodotto
 

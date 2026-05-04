@@ -1,27 +1,13 @@
 ---
-layout: default
-title: K-Means & alternative
-parent: Teoria
-nav_order: 2
-math: mathjax
-description: >-
-  K-Means come baseline, scelta di K via elbow e silhouette, confronto con
-  Gaussian Mixture, DBSCAN e Hierarchical. Limiti su feature non-gaussiane
-  e ruolo della standardizzazione.
+sidebar_position: 2
+title: "Clustering: KMeans vs alternative"
+description: |
+  K-Means come baseline, scelta di K via elbow e silhouette, confronto con Gaussian Mixture, DBSCAN e Hierarchical clustering. Limiti su feature non-gaussiane e ruolo della standardizzazione.
 ---
 
 # Clustering: K-Means e le sue alternative
-{: .no_toc }
 
 > *"K-Means è veloce, semplice e quasi sempre il primo modello che provi. È anche quasi sempre l'ultimo che ti convince davvero."*
-
-## Indice
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
-
----
 
 ## 1. Cos'è il clustering e perché lo usiamo
 
@@ -54,8 +40,11 @@ model = KMeans(n_clusters=k, random_state=42, n_init=10, max_iter=500)
 labels = model.fit_predict(X_standardized)
 ```
 
-!!! note "Perché `n_init=10`"
-    L'algoritmo è sensibile all'inizializzazione e converge a un **minimo locale**. `n_init=10` esegue 10 inizializzazioni random e mantiene quella con inertia minima. È un costo lineare in `n_init` ma drasticamente più stabile.
+:::note[Perché `n_init=10`]
+
+L'algoritmo è sensibile all'inizializzazione e converge a un **minimo locale**. `n_init=10` esegue 10 inizializzazioni random e mantiene quella con inertia minima. È un costo lineare in `n_init` ma drasticamente più stabile.
+
+:::
 
 ### Punti di forza
 
@@ -120,10 +109,13 @@ def select_k(X, k_range=(3,4,5,6,7,8), fit_fn=fit_kmeans, random_state=42):
     return best.k, results
 ```
 
-!!! tip "Silhouette su sample"
-    Il calcolo della silhouette è $O(n^2)$ — pesante su milioni di punti.
-    Usiamo `_sample_silhouette` con campionamento di 5000 punti: trade-off
-    fra costo e stabilità della stima.
+:::tip[Silhouette su sample]
+
+Il calcolo della silhouette è $O(n^2)$ — pesante su milioni di punti.
+Usiamo `_sample_silhouette` con campionamento di 5000 punti: trade-off
+fra costo e stabilità della stima.
+
+:::
 
 ### 3.3 Quando l'elbow e la silhouette discordano
 
@@ -221,8 +213,11 @@ X_test_s = scaler.transform(X_test)
 
 Tutte le feature post-scaling hanno media 0 e varianza 1 → contribuiscono **equamente** alla distanza.
 
-!!! warning "Salvare lo scaler"
-    Non basta standardizzare in fase di training: lo scaler ($\mu, \sigma$ del training) va **persistito** insieme al modello di clustering. Vedi `joblib.dump({"cluster_model": ..., "scaler": user_scaler, ...})` in `pipeline.py`. In inferenza si applica `scaler.transform(X_new)` con le statistiche del training, mai si ri-fittano sul nuovo dato.
+:::warning[Salvare lo scaler]
+
+Non basta standardizzare in fase di training: lo scaler ($\mu, \sigma$ del training) va **persistito** insieme al modello di clustering. Vedi `joblib.dump({"cluster_model": ..., "scaler": user_scaler, ...})` in `pipeline.py`. In inferenza si applica `scaler.transform(X_new)` con le statistiche del training, mai si ri-fittano sul nuovo dato.
+
+:::
 
 ### Alternative allo z-score
 

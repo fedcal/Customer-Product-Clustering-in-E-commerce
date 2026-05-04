@@ -1,27 +1,13 @@
 ---
-layout: default
-title: Pipeline riproducibile & seed
-parent: Teoria
-nav_order: 5
-math: mathjax
-description: >-
-  Riproducibilità in ML: seeding di numpy/sklearn/xgboost, ordering
-  deterministico, versionamento di codice e dataset, struttura modulare
-  con sklearn Pipeline e ColumnTransformer.
+sidebar_position: 5
+title: "Pipeline riproducibile & seed"
+description: |
+  Riproducibilita in ML: seeding di numpy/sklearn/xgboost, ordering deterministico, versionamento di codice e dataset, struttura modulare con sklearn Pipeline.
 ---
 
 # Pipeline riproducibile, seed e versionamento
-{: .no_toc }
 
 > *"Riproducibilità non è 'mi ricordo come l'ho fatto'. È 'chiunque può rifarlo, ottenendo lo stesso identico risultato'."*
-
-## Indice
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
-
----
 
 ## 2. I tre livelli di riproducibilità
 
@@ -91,8 +77,11 @@ XGBClassifier(
 )
 ```
 
-!!! warning "GPU vs CPU"
-    `tree_method="gpu_hist"` può dare risultati leggermente diversi tra esecuzioni (alcune somme floating-point sono non-deterministiche su GPU). Per il PW restiamo su `tree_method="hist"` (CPU).
+:::warning[GPU vs CPU]
+
+`tree_method="gpu_hist"` può dare risultati leggermente diversi tra esecuzioni (alcune somme floating-point sono non-deterministiche su GPU). Per il PW restiamo su `tree_method="hist"` (CPU).
+
+:::
 
 ## 3. Ordering deterministico dei dati
 
@@ -194,8 +183,11 @@ Se differiscono:
 - C'è un timestamp o ID univoco serializzato dentro il modello.
 - L'ordine dei dati è cambiato.
 
-!!! tip "joblib + protocollo deterministico"
-    `joblib.dump(obj, path)` può aggiungere metadati di sistema (es. versione di scikit-learn). Per riproducibilità totale, fissa la versione in `pyproject.toml` (`scikit-learn>=1.6,<2.0`).
+:::tip[joblib + protocollo deterministico]
+
+`joblib.dump(obj, path)` può aggiungere metadati di sistema (es. versione di scikit-learn). Per riproducibilità totale, fissa la versione in `pyproject.toml` (`scikit-learn>=1.6,<2.0`).
+
+:::
 
 ## 6. Versionamento
 
@@ -282,7 +274,7 @@ logging.basicConfig(
 
 Il PW01 non ha una test suite completa (didattico, non production). Ha però:
 
-- **`ecom-cluster --quick`**: smoke test della pipeline in <30 secondi (K=5 fisso, no GMM, no plot).
+- **`ecom-cluster --quick`**: smoke test della pipeline in &lt;30 secondi (K=5 fisso, no GMM, no plot).
 - **`tests/`** directory: placeholder per test unitari futuri.
 
 In produzione si dovrebbero aggiungere:
@@ -296,8 +288,8 @@ In produzione si dovrebbero aggiungere:
 
 Prima di committare modifiche al codice ML:
 
-1. [ ] `ecom-cluster --quick` completa senza errori in <30s.
-2. [ ] `ecom-cluster` completa senza errori in <5min.
+1. [ ] `ecom-cluster --quick` completa senza errori in &lt;30s.
+2. [ ] `ecom-cluster` completa senza errori in &lt;5min.
 3. [ ] Le metriche in `reports/metrics.json` sono ragionevoli (macro-F1 > baseline).
 4. [ ] Non ho aggiunto magic number (tutti gli iperparametri in `config.py`).
 5. [ ] Non ho introdotto seed non controllati (grep `random.` e `np.random.` per check).

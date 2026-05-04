@@ -1,27 +1,13 @@
 ---
-layout: default
-title: Split temporali & no-leakage
-parent: Teoria
-nav_order: 3
-math: mathjax
-description: >-
-  Hold-out cronologico, walk-forward validation, perché il random split
-  è sbagliato per dati temporali. Definizione di leakage temporale ed
-  esempi pratici nel contesto del clustering RFM.
+sidebar_position: 3
+title: "Split temporali & no leakage"
+description: |
+  Hold-out cronologico, walk-forward validation, two-snapshot. Definizione di leakage temporale ed esempi pratici nel contesto del clustering RFM.
 ---
 
 # Split temporali e prevenzione del data leakage
-{: .no_toc }
 
 > *"In serie temporali, il futuro non è un campione casuale del passato."*
-
-## Indice
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
-
----
 
 ## 1. Il problema
 
@@ -98,8 +84,11 @@ def make_future_user_clusters(ecom, as_of, horizon_days, cluster_model, scaler, 
     return pd.Series(labels, index=feats_future.index, ...)
 ```
 
-!!! danger "Sottiglia: il cluster_model è fittato sul training"
-    Le label future del **test set** vengono ottenute applicando il K-Means **fittato su `as_of_train`** alle feature di `as_of_test + H`. Questo è essenziale: se rifittassimo K-Means sui dati di test, l'identità dei cluster cambierebbe (label = 0 nel training potrebbe essere label = 2 nel test) e il classificatore non avrebbe nulla da imparare.
+:::danger[Sottiglia: il cluster_model è fittato sul training]
+
+Le label future del **test set** vengono ottenute applicando il K-Means **fittato su `as_of_train`** alle feature di `as_of_test + H`. Questo è essenziale: se rifittassimo K-Means sui dati di test, l'identità dei cluster cambierebbe (label = 0 nel training potrebbe essere label = 2 nel test) e il classificatore non avrebbe nulla da imparare.
+
+:::
 
 ## 4. Strategie di split temporale (panoramica)
 

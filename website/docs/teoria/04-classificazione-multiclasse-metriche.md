@@ -1,27 +1,13 @@
 ---
-layout: default
-title: Classificazione multiclasse & metriche
-parent: Teoria
-nav_order: 4
-math: mathjax
-description: >-
-  Accuracy, macro-F1, weighted-F1, balanced accuracy, log-loss e confusion
-  matrix. Scelta della metrica con classi sbilanciate e impatto degli
-  errori "costosi" nel contesto e-commerce.
+sidebar_position: 4
+title: "Classificazione multiclasse & metriche"
+description: |
+  Accuracy, macro-F1, weighted-F1, balanced accuracy, log-loss e confusion matrix. Scelta della metrica con classi sbilanciate e impatto degli errori costosi nel contesto e-commerce.
 ---
 
 # Classificazione multiclasse e metriche
-{: .no_toc }
 
 > *"Una metrica scelta male trasforma un modello mediocre in 'state-of-the-art' e un buon modello in spazzatura. La metrica è la prima decisione di modeling."*
-
-## Indice
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
-
----
 
 ## 1. Setup del problema
 
@@ -166,8 +152,11 @@ mean, std = cross_val_macro_f1(rf_model, X_train_clf, y_train_clf, cv=5)
 print(f"macro-F1: {mean:.3f} ± {std:.3f}")
 ```
 
-!!! warning "CV su problema temporale: vedi capitolo split"
-    `cross_val_score(model, X, y, cv=5)` con default `KFold(shuffle=False)` su array che NON sono ordinati per tempo NON garantisce split temporali. Per il PW, la valutazione "ufficiale" è sull'holdout temporale `as_of_test`. La CV sul training è solo un sanity check sulla varianza interna del modello.
+:::warning[CV su problema temporale: vedi capitolo split]
+
+`cross_val_score(model, X, y, cv=5)` con default `KFold(shuffle=False)` su array che NON sono ordinati per tempo NON garantisce split temporali. Per il PW, la valutazione "ufficiale" è sull'holdout temporale `as_of_test`. La CV sul training è solo un sanity check sulla varianza interna del modello.
+
+:::
 
 ## 7. Class imbalance: cosa fare
 
