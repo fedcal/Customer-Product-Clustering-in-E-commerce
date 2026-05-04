@@ -41,16 +41,18 @@ La valutazione premierà la correttezza metodologica, la gestione del tempo e de
 
 ## Repository GitHub
 
-> **Nome del repository pubblico (consigliato)**: `ecom-customer-product-clustering`
-> URL: <https://github.com/fedcal/ecom-customer-product-clustering>
+> **Nome del repository pubblico (consigliato)**: `Customer-Product-Clustering-in-E-commerce`
+> URL: <https://github.com/fedcal/Customer-Product-Clustering-in-E-commerce>
 
-Il deploy della documentazione su GitHub Pages è automatizzato dal workflow [`.github/workflows/jekyll.yml`](.github/workflows/jekyll.yml): builda Jekyll + Just the Docs e pubblica il sito ad ogni push su `main` (o su run manuale dalla tab Actions). **Setup richiesto una volta sola**: *Settings → Pages → Build and deployment → Source = **GitHub Actions***.
+Il deploy della documentazione su GitHub Pages è automatizzato dal workflow [`.github/workflows/deploy-docs.yml`](.github/workflows/deploy-docs.yml): builda **Docusaurus 3 + TypeScript + KaTeX** e pubblica il sito tramite **GitHub Actions** ad ogni push su `main` / `master` (o su run manuale dalla tab Actions). **Setup richiesto una volta sola**: *Settings → Pages → Build and deployment → Source = **GitHub Actions***.
 
 ## Documentazione completa
 
-Il sito di documentazione (Jekyll + tema **Just the Docs**, in italiano) è pubblicato a:
+[![Docs](https://img.shields.io/badge/docs-Docusaurus%203-3578E5.svg)](https://fedcal.github.io/Customer-Product-Clustering-in-E-commerce/)
 
-**<https://fedcal.github.io/ecom-customer-product-clustering/>**
+Il sito di documentazione (Docusaurus 3 + TypeScript + KaTeX, in italiano) è pubblicato a:
+
+**<https://fedcal.github.io/Customer-Product-Clustering-in-E-commerce/>**
 
 Contiene:
 
@@ -58,11 +60,13 @@ Contiene:
 - **Scelte tecniche**: architettura del repository, decisioni di modellazione, trade-off espliciti.
 - **Quick start** e API di inferenza.
 
+I sorgenti del sito vivono in `website/docs/` (Markdown / MDX); il build avviene con `npm run build` dentro `website/`.
+
 ## Quick start
 
 ```bash
-git clone https://github.com/fedcal/ecom-customer-product-clustering.git
-cd ecom-customer-product-clustering
+git clone https://github.com/fedcal/Customer-Product-Clustering-in-E-commerce.git
+cd Customer-Product-Clustering-in-E-commerce
 python3 -m venv venv && source venv/bin/activate
 pip install -e ".[notebooks]"
 
@@ -116,14 +120,15 @@ Quattro notebook in `notebooks/` mostrano il flusso passo passo (generati da `sc
 ## Struttura del repository
 
 ```
-ecom-customer-product-clustering/
+Customer-Product-Clustering-in-E-commerce/
 ├── src/ecom_clustering/         Codice (pip install -e .)
 ├── notebooks/                   4 notebook didattici
 ├── data/raw/                    5 CSV (committati, ~30 MB)
 ├── reports/                     Output (figures, models, metrics.json)
 ├── scripts/build_notebooks.py   Generatore notebook
-├── docs/                        Sito Jekyll + Just the Docs (GitHub Pages)
+├── website/                     Sito Docusaurus 3 + TypeScript + KaTeX (GitHub Pages)
 ├── tests/                       Smoke test (placeholder)
+├── .github/workflows/           CI/CD: deploy Docusaurus su GitHub Pages
 ├── pyproject.toml               Build + dipendenze + entry point CLI
 ├── LICENSE                      MIT
 └── README.md                    Questo file

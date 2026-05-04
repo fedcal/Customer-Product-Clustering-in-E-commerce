@@ -5,7 +5,7 @@ description: |
   Razionale delle decisioni: K-Means come modello primario, GMM come confronto, RandomForest e XGBoost per il cluster futuro, gestione dello sbilanciamento di classe.
 ---
 
-Documenta le decisioni "perché così e non cosà" di livello modeling. Per dettagli teorici sulle tecniche, vedi la sezione [Teoria](../../teoria/).
+Documenta le decisioni "perché così e non cosà" di livello modeling. Per dettagli teorici sulle tecniche, vedi la sezione [Teoria](/docs/category/teoria).
 
 ## 1. Set di feature scelte
 
