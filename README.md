@@ -44,7 +44,7 @@ La valutazione premierà la correttezza metodologica, la gestione del tempo e de
 > **Nome del repository pubblico (consigliato)**: `ecom-customer-product-clustering`
 > URL: <https://github.com/fedcal/ecom-customer-product-clustering>
 
-Il deploy della documentazione su GitHub Pages avviene automaticamente a ogni push su `main` direttamente dalla cartella [`docs/`](docs/) (Jekyll lato server). Per attivarlo: **Settings → Pages → Source = Deploy from a branch, Branch = `main`, Folder = `/docs`**. Nessun workflow GitHub Actions richiesto.
+Il deploy della documentazione su GitHub Pages è automatizzato dal workflow [`.github/workflows/jekyll.yml`](.github/workflows/jekyll.yml): builda Jekyll + Just the Docs e pubblica il sito ad ogni push su `main` (o su run manuale dalla tab Actions). **Setup richiesto una volta sola**: *Settings → Pages → Build and deployment → Source = **GitHub Actions***.
 
 ## Documentazione completa
 
