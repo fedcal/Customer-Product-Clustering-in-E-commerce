@@ -1,0 +1,70 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+.installed.cfg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*.cover
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+ENV/
+.env
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb_meta
+profile_default/
+ipython_config.py
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+Thumbs.db
+
+# --- Dati ---
+# Il dataset sintetico (5 CSV, ~30 MB totali) è committato in `data/raw/`
+# perché è parte integrante del PW e necessario per la riproducibilità.
+# `data/processed/` è invece sempre rigenerabile dal codice.
+data/processed/*
+!data/processed/.gitkeep
+
+# --- Modelli serializzati ---
+# I modelli .joblib vengono rigenerati da `ecom-cluster`.
+reports/models/*
+!reports/models/.gitkeep
+
+# --- Output di training (riproducibili) ---
+reports/metrics.json
+
+# --- Plots (rigenerati ad ogni run) ---
+# Mantieni se vuoi mostrarli sul README; cancella per repo minimale.
+# reports/figures/*
+
+# --- Log ---
+*.log
+logs/
+
+# --- OS ---
+.DS_Store
+*~
